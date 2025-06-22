@@ -1,0 +1,24 @@
+@import "tailwindcss";
+/* CSS ecrit en dure*/
+#navbar {
+    position: sticky;
+    top: 0;
+}
+.sticky {
+    border-bottom: 1px solid #d6dee9;
+}
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(
+            -20px
+        );  /* Ajuste la valeur pour modifier l'amplitude du flottement */
+    }
+}
+
+.animate-floating {
+    animation: float 3s ease-in-out infinite; /* Ajuste la durée et l'interpolation */
+}
