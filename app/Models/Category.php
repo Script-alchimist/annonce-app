@@ -1,38 +1,20 @@
 <?php
 
-
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Annonce extends Model
+class Category extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'category_id',
-        'titre',
-        'description',
-        'prix',
-        'image',
+        'name',
     ];
 
-    /**
-     * Obtenez l'utilisateur propriétaire de cette annonce.
-     */
-    public function user()
+    public function annonces()
     {
-        return $this->belongsTo(User::class);
-    }
-
-    /**
-     * Obtenez la catégorie de cette annonce.
-     */
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
+        return $this->hasMany(Annonce::class);
     }
 }

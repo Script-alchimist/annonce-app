@@ -14,10 +14,13 @@
       </div>
 
       <div class="hidden md:block">
-        <form action="" method="post" class="w-2xl">
+        <form action="{{route('search-annonce')}}" method="GET" class="w-2xl">
             <div class="flex overflow-hidden border-2 border-green-700 rounded-xl ">
-                <input type="search" placeholder="Search Something..."
-                class="w-full px-5 py-3 text-sm bg-white outline-none" />
+                <input 
+                  type="search" placeholder="Search Something..."
+                  class="w-full px-5 py-3 text-sm bg-white outline-none" 
+                  name="search" id="search" value="{{ request()->input('search') }}"
+                />
                 <button type='button' class="flex items-center justify-center px-6 bg-teal-600 hover:bg-teal-700">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192.904 192.904" width="18px" class="fill-white">
                     <path
@@ -28,43 +31,89 @@
             </div>
         </form>
       </div>
-
-      <div class="flex items-center gap-4">
-        <div class="sm:flex sm:gap-4">
-          <a
-            class="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow-sm dark:hover:bg-teal-500"
-            href="{{route('login')}}"
-          >
-            Login
-          </a>
-
-          <div class="hidden sm:flex">
+      @auth
+        
+        <div class="flex items-center gap-4">
+          <div class="sm:flex sm:gap-4">
+            
             <a
-              class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
-              href="{{route('register')}}"
+              class="rounded-md px-5 py-2.5 text-xl font-semibold text-teal-700 hover:shadow-sm dark:hover:bg-teal-500"
+              href="{{route('user-profile')}}"
             >
-              Register
+              {{Auth::user()->firstname}}
             </a>
+
+            <form class="hidden sm:flex" action="{{route('logout')}}" method="POST">
+              @csrf
+              <button
+                type="submit"
+                class="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
+                href="{{route('register')}}"
+              >
+                Déconnexion
+              </button>
+            </form>
+          </div>
+
+          <div class="block md:hidden">
+            <button
+              class="p-2 text-gray-600 transition bg-gray-100 rounded-sm hover:text-gray-600/75 dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="size-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
           </div>
         </div>
-
-        <div class="block md:hidden">
-          <button
-            class="p-2 text-gray-600 transition bg-gray-100 rounded-sm hover:text-gray-600/75 dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="size-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
+      
+      @endauth
+      @guest
+        
+        <div class="flex items-center gap-4">
+          <div class="sm:flex sm:gap-4">
+            <a
+              class="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow-sm dark:hover:bg-teal-500"
+              href="{{route('login')}}"
             >
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
+              Login
+            </a>
+
+            <div class="hidden sm:flex">
+              <a
+                class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
+                href="{{route('register')}}"
+              >
+                Register
+              </a>
+            </div>
+          </div>
+
+          <div class="block md:hidden">
+            <button
+              class="p-2 text-gray-600 transition bg-gray-100 rounded-sm hover:text-gray-600/75 dark:bg-gray-800 dark:text-white dark:hover:text-white/75"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="size-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
         </div>
-      </div>
+      
+      @endguest
     </div>
   </div>
 </header>

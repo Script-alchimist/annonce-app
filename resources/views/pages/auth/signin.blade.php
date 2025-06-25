@@ -24,15 +24,15 @@
                         @enderror
                     </div>
                     <div>
-                        <label for="name"
+                        <label for="lastname"
                             class="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">Nom</label>
                         <input 
-                            type="text" name="name" id="name" 
+                            type="text" name="lastname" id="lastname" 
                             class="block w-full px-4 py-3 transition duration-150 ease-in-out border border-gray-300 rounded-lg shadow-sm dark:border-gray-600 focus:outline-none focus:ring-teal-500 focus:border-teal-500 bg-gray-50 dark:bg-gray-700 dark:text-white sm:text-base"
                             placeholder="Votre nom"
-                            value="{{ old('name') }}"
+                            value="{{ old('lastname') }}"
                         >
-                        @error('name')
+                        @error('lastname')
                             <p class="mt-1 text-xs text-red-500">{{ $message }}</p>         
                         @enderror
                     </div>

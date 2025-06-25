@@ -87,18 +87,11 @@
             <div class="p-5">
                 <h2 class="mb-4 text-2xl font-bold text-teal-900">Catégories des annonces</h2>
                 <ul class="space-y-4">
-                    <li>
-                        <a href="#" class="text-teal-600 hover:underline">Type d'annonce 1</a>
-                    </li>
-                    <li>
-                        <a href="#" class="text-teal-600 hover:underline">Type d'annonce 2</a>
-                    </li>
-                    <li>
-                        <a href="#" class="text-teal-600 hover:underline">Type d'annonce 3</a>
-                    </li>
-                    <li>
-                        <a href="#" class="text-teal-600 hover:underline">Type d'annonce 4</a>
-                    </li>
+                    @foreach ($categories as $category)
+                        <li>
+                            <a href="#" class="text-teal-600 hover:underline">{{$category->name}}</a>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </div>

@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('annonces', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
-            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade'); 
-            $table->string('titre');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->string('title');
             $table->text('description');
-            $table->decimal('prix', 10, 2)->unsigned(); 
-            $table->string('image')->nullable(); // Chemin de l'image
+            $table->decimal('price', 10, 2)->unsigned(); 
+            $table->string('location');
+            $table->string('phone');     
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('annonce');
+        Schema::dropIfExists('annonces');
     }
 };

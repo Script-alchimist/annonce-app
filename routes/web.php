@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\RegisteredUserController;
-
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\AnnonceController;
+use App\Http\Controllers\Auth\LoginController as Login;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,46 +15,28 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 |
 */
 
-Route::view('/', 'pages.container')->name('home');
-Route::view('/annonce/article/{id}', 'pages.article')->name('article');
+Route::get('/', [AnnonceController::class,'index'])->name('home');
+Route::get('/annonce/article/{id}', [AnnonceController::class,'show'])->name('article');
 
-Route::view('/annonce/owner', 'pages.profile.profiLayout')->name('LayoutProfile');
-Route::view('/annonce/owner/profile', 'pages.profile.manager.profile')->name('user-profile');
-Route::view('/annonces/owner/annonces', 'pages.profile.manager.annonces')->name('user-annonces');
-Route::view('/annoncs/owner/annonce/create', 'pages.profile.manager.create')->name('create-annonce');
-Route::view('/annonces/owner/annonce/edit', 'pages.profile.manager.edit')->name('edit-annonce');
-Route::view('/annonce/owner/annonces/delete/{id}', 'pages.profile.manager.delete')->name('delete-annonce');
+Route::get('/annonce/owner/profile', [AuthController::class,'profile'])->name('user-profile');
+Route::get('/annonces/owner/annonces', [AnnonceController::class,'userAnnonces'])->name('user-annonces');
+Route::get('/annonces/owner/annonce/create', [AnnonceController::class,'create'])->name('create-annonce');
+Route::post('/annonces/owner/annonce/create', [AnnonceController::class,'store']);
+Route::get('/annonces/owner/annonce/edit/{id}/edit', [AnnonceController::class,'edit'])->name('annonce.edit');
+Route::put('/annonces/owner/annonce/edit/{id}/edit', [AnnonceController::class,'update']);
+Route::delete('/annonces/owner/annonces/delete/{id}/delete', [AnnonceController::class,'destroy'])->name('delete-annonce');
+Route::get('/annonces/search/res', [AnnonceController::class,'search'])->name('search-annonce');
 
-Route::get('/register/sign-in', [RegisteredUserController::class, 'create'])->name('register');
-Route::post('/register/sign-in', [RegisteredUserController::class, 'store']);
-Route::view('/connect/signup', 'Pages.auth.login')->name('login');
-//Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
-//Route::post('/login', [AuthenticatedSessionController::class, 'store']); // Gère la soumission du formulaire de connexion
-//Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+Route::get('/register/sign-in', [AuthController::class, 'create'])->name('register');
+Route::post('/register/sign-in', [AuthController::class, 'store']);
+
+Route::middleware('guest')->group(function () {
+    Route::get('/login/sign-up', [Login::class, 'login'])->name('login');
+    Route::post('/login/sign-up', [Login::class, 'store']);
+});
+Route::post('/annonce-app/logout', [Login::class, 'destroy'])->name('logout');
 
 
 Route::view('/annonce/app/admin', 'pages.admin.home')->name('adminHome');
 Route::view('/annonce/app/admin/annonces', 'pages.admin.annonces')->name('admin-annonces');
 
-// Les routes pour les utilisateurs simples sont sous 'auth' seulement
-    Route::middleware(['auth'])->group(function () {
-        Route::get('/dashboard', function () {
-            return view('dashboard'); // Votre tableau de bord utilisateur général
-        })->name('dashboard');
-
-        // ... vos routes de profil et d'annonces utilisateur
-        Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
-        Route::get('/ads/create', [App\Http\Controllers\AdController::class, 'create'])->name('ads.create');
-        // etc.
-    });
-    
-//
-Route::middleware(['auth', 'is_admin'])->group(function () {
-    // Toutes les routes à l'intérieur de ce groupe ne seront accessibles qu'aux administrateurs connectés
-    Route::get('/admin/dashboard', function () {
-        return "Bienvenue sur le tableau de bord administrateur !"; // Ou une vue Blade pour l'admin
-    })->name('admin.dashboard');
-
-        // Exemple: Gestion des utilisateurs (uniquement pour les admins)
-    Route::get('/admin/users', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.users.index');
-});

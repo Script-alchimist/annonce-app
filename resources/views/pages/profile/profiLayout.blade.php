@@ -7,16 +7,26 @@
                 <h2 class="mb-4 text-3xl font-bold text-teal-900">Gestionnaire d'annonce</h2>
                 <ul class="space-y-4">
                     <li>
-                        <a href="#" class="text-teal-600 hover:underline">Profile</a>
+                        <a href="{{ route('user-profile') }}" class="text-teal-600 hover:underline">Profile</a>
                     </li>
                     <li>
-                        <a href="#" class="text-teal-600 hover:underline">Mes annonces</a>
+                        <a href="{{ route('user-annonces') }}" class="text-teal-600 hover:underline">Mes annonces</a>
                     </li>
                     <li>
-                        <a href="#" class="text-teal-600 hover:underline">Créer une annonce</a>
+                        <a href="{{ route('create-annonce') }}" class="text-teal-600 hover:underline">Créer une annonce</a>
+                    </li>
+                </ul>
+                <hr class="my-3 border border-gray-300">
+                <h2 class="mb-4 text-2xl font-semibold text-teal-900">Menu</h2>
+                <ul class="space-y-4">
+                    <li>
+                        <a href="{{ route('home') }}" class="text-teal-600 hover:underline">Accueil</a>
                     </li>
                     <li>
-                        <a href="#" class="text-teal-600 hover:underline">Editer une annonce</a>
+                        <a href="{{ route('user-annonces') }}" class="text-teal-600 hover:underline">Mes annonces</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('create-annonce') }}" class="text-teal-600 hover:underline">Créer une annonce</a>
                     </li>
                 </ul>
             </div>

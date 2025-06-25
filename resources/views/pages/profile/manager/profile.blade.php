@@ -78,7 +78,7 @@
                     </span>
                     <span class="text-xl text-gray-700 dark:text-gray-300">annonces publiées</span>
                 </div>
-                <a href="#"
+                <a href="{{route('user-annonces')}}"
                     class="inline-flex items-center px-8 py-3 mt-6 text-base font-medium text-white transition duration-150 ease-in-out bg-teal-600 border border-transparent rounded-lg shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500">
                     Voir mes annonces
                 </a>
